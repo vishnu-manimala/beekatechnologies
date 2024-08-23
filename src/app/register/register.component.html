@@ -1,0 +1,47 @@
+<section class="register-section">
+    <div class="card text-center w-50 shadow">
+      <div class="card-header shadow border-1 p-3 bg-primary-subtle text-black fw-bolder">
+        Register now!!!
+      </div>
+      <div class="card-body mt-3">
+        <form [formGroup]="registerFrom" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Name" formControlName="name" id="name" aria-describedby="name-area">
+              @if(registerFrom.hasError('required','name') &&  registerFrom.controls['name'].dirty){
+                <div class="form-text text-danger text-start ps-3">Name required</div>
+              }
+            </div>
+            <div class="mb-3">
+              <input type="email" formControlName="email" placeholder="Email" class="form-control" id="email">
+              @if(registerFrom.hasError('required','email') &&  registerFrom.controls['email'].dirty){
+                <div class="form-text text-danger text-start ps-3">Email required</div>
+              }
+              @if(registerFrom.hasError('email','email') &&  registerFrom.controls['email'].dirty){
+                <div class="form-text text-danger text-start ps-3">Enter a valid email.</div>
+              }
+            </div>
+            <div class="mb-3">
+                <input type="password" placeholder="Password" formControlName="password" class="form-control" id="password">
+                @if(registerFrom.hasError('required','password') &&  registerFrom.controls['password'].dirty){
+                    <div class="form-text text-danger text-start ps-3">Password required</div>
+                  }
+                  @if(registerFrom.hasError('pattern','password') &&  registerFrom.controls['password'].dirty){
+                    <div class="form-text text-danger text-start ps-3">Password length range should be 8-20 letters, atleat one uppercase, one lowercase, numbers and special charecters.</div>
+                  }
+              </div>
+              <div class="mb-3">
+                <input type="password" placeholder="Confirm Password" class="form-control" formControlName="confirmPassword" id="confirmPassword" (input)="passwordMatchValidator()">
+                @if(registerFrom.hasError('required','confirmPassword') &&  registerFrom.controls['confirmPassword'].dirty){
+                    <div class="form-text text-danger text-start ps-3">Confirm Password required</div>
+                  }
+                  <div *ngIf="passwordMatchError && !registerFrom.hasError('required','confirmPassword')" class="form-text text-danger text-start ps-3">{{passwordMatchError}}</div>
+              </div>
+            <button type="submit" class="btn btn-primary" [disabled]="registerFrom.invalid">Submit</button>
+          </form>
+      </div>
+      <div class="card-footer text-body-secondary">
+       already have an account? <a href=""  class="text-decoration-none">Login here!</a>
+      </div>
+    </div>
+  
+  </section>
